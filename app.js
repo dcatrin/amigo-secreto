@@ -2,7 +2,7 @@
 //insertar nombre de amigos
 
 let listaAmigos = [];
-
+document.querySelector('#amigo').focus();
 
 function asignarTextoElemento(elemento, texto){
     let elementoHTML = document.querySelector(elemento);
@@ -12,46 +12,48 @@ function asignarTextoElemento(elemento, texto){
 
 function limpiarCaja(){
     document.querySelector('#amigo').value = '';
+    document.getElementById("resultado").innerHTML = "";
+    document.querySelector('#amigo').focus();
 }    
-//asignarTextoElemento('p', 'Indica un número del 1 al 10');
-//guardar nombre de amigos aca ver si el nombre ingresado ya existe no deberia incluirlo 
+//asignar
 function agregarAmigo(){
         const nombreAmigo = document.getElementById('amigo').value;
         //verificar si existe el nombre en la lista
-        if (listaAmigos.includes(nombreAmigo)) {
-            asignarTextoElemento('h2', 'Amigo ingresado, intente con otro');
+        if (nombreAmigo === ""){
+            asignarTextoElemento('h2', 'Debes ingresar un nombre');
+        }
+        else if (listaAmigos.includes(nombreAmigo)) {
+            asignarTextoElemento('h2', 'Nombre ingresado, intenta con otro');
         } else {
             listaAmigos.push(nombreAmigo);
-
+        
+            //muesta listado de amigos ingresados por pantalla
             const lista = document.getElementById('listaAmigos');
-            const li = document.createElement('li');
-            li.textContent = nombreAmigo;
-            lista.appendChild(li);
-
-
-
+            const nombrePantalla = document.createElement('li');
+            nombrePantalla.textContent = nombreAmigo;
+            lista.appendChild(nombrePantalla);
 
             console.log(listaAmigos); 
-            asignarTextoElemento('h2', 'Digite el nombre de sus amigos');
+            asignarTextoElemento('h2', 'Digita el nombre de tus amigos');
         }
-        
-        //prueba
-        
-        //esto sirve para ver el tipo de dato q ingreso el usuario
-        //console.log(typeof(numeroDeUsuario));
-        //console.log (numeroDeUsuario === numeroSecreto);
-        //intentos++
         limpiarCaja();
-         return ;
+        return ;
         
 }
-//asignarTextoElemento('h2', 'Digite el nombre de sus amigos');
-       
+
+//sortear amigo       
+function sortearAmigo(){
+    if (listaAmigos.length === 0){
+        asignarTextoElemento('h2', 'Debes ingresar el nombre de tus amigos');
+    }
+    else {
+        //muestra el nombre del amigo escogido
+        const amigoElegido = listaAmigos[Math.floor(Math.random() * listaAmigos.length)];
+        const resultadoAmigo = document.getElementById("resultado");
+        resultadoAmigo.innerHTML = `El amigo sorteado es ${amigoElegido}`;
+         
+    }
 
 
-//cambiar titulo de arriba  
-//pedir nombre para comenzar sorteo  
-//elegir nombre menos el q esta jugando
-// //devolver nombre sorteado
-//sacar nombre seleccionado y agregar nombre del jugador anterior
-//volver a pedir nombre a jugador y repetir ciclo  
+return;
+}    
